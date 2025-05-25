@@ -1,6 +1,6 @@
 # SkillSyncPro – AI-Powered CV Analyzer for Job Description Matching
 
-SkillSyncPro is an open-source AI-powered CV analyzer that compares your resume against a job description. It extracts and compares hard and soft skills using natural language processing and embeddings to help job seekers and recruiters identify keyword matches.
+This application is a **CV and job description matching tool** that analyzes the similarity between a **resume (CV)** and a **job posting** by comparing **hard skills** and **soft skills** extracted from both documents. It helps **job seekers** quickly assess how well their **qualifications** align with a specific **job requirement** without generating suggestions or **resume rewriting**.  This tool streamlines the **job application process** by providing a clear understanding of the **skill gap** between a candidate's **experience** and the **employer's needs**.
 
 ## Features
 
