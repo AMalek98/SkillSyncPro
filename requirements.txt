@@ -1,0 +1,14 @@
+flask
+python-dotenv
+langchain
+langchain-community
+langchain-ollama
+langchain-anthropic
+ollama
+anthropic
+pdfplumber
+numpy
+pydantic
+langgraph
+
+

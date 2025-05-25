@@ -1,0 +1,38 @@
+Description de l'emploi
+Binit Nearshore Services (BinitNS) is a Consulting and Services company operating in the ITO and BPO areas. We advise our European Customers for their IT projects: From Business Process Digitalization to Infrastructure evolutions and Cloud migrations.
+
+One of our clients is a technology start-up providing data acquisition, analytics, and reporting solutions for investors and asset services.
+
+In this context, we are hiring a Junior Machine Learning Engineer to contribute to the development and maintenance of a data science-driven document parsing stack. This is a unique opportunity to work in a dynamic, fast-paced startup environment applying advanced machine learning techniques such as Natural Language Processing (NLP), machine vision, and large language models (LLMs) within cloud-native architecture.
+
+The ideal candidate is passionate about applied machine learning and eager to contribute to a production-grade AI system running on Kubernetes and serverless infrastructure.
+
+Your Missions:
+
+Monitor and troubleshoot the data science stack running in production
+Investigate issues and propose solutions to improve reliability and accuracy
+Collaborate with product and client success teams to implement tactical improvements based on user feedback
+Contribute to the development of ML models for document parsing and information extraction
+Work on retrieval-augmented generation (RAG) pipelines and LLM-based architecture
+Participate in model evaluation and optimization for performance and scalability
+Exigences de l'emploi
+Your Qualifications:
+
+An Engineering or Master’s degree in Data Science
+Strong proficiency in Python for machine learning, scripting, and automation
+Foundational understanding of machine learning, NLP, and computer vision concepts
+Exposure to cloud platforms (e.g., AWS), containers (e.g., Docker), and orchestration (e.g., Kubernetes) is a plus
+Curiosity, problem-solving mindset, and willingness to learn in a collaborative environment
+Excellent communication skills in English
+What You Will Learn:
+
+Hands-on experience with cloud-native machine learning workflows
+Real-world application of NLP, LLMs, and visual language models in production
+Best practices in building reliable, scalable AI systems
+Collaboration with cross-functional international teams in a data-driven startup
+Starting Date: As soon as possible
+Location: Tunisia
+Perks: An amazing work environment and a highly competitive package
+
+Date d'expiration
+11/05/2025

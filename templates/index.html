@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Job Matcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out; }
+        .file-drop-zone {
+            transition: all 0.3s ease;
+            border: 2px dashed #d1d5db;
+        }
+        .file-drop-zone:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .file-drop-zone.drag-over {
+            border-color: #1d4ed8;
+            background-color: #dbeafe;
+        }
+        .file-selected {
+            border-color: #10b981;
+            background-color: #ecfdf5;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto animate-fade-in">
+            
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-6 animate-float">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                    SkillSync Pro
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Sync Your CV with the Right Role.
+                </p>
+            </div>
+
+            <!-- Error Message -->
+            {% if error %}
+            <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-400 rounded-lg">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-red-700 font-medium">{{ error }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Main Form -->
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="p-8">
+                    <form method="POST" enctype="multipart/form-data" class="space-y-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            
+                            <!-- CV Upload -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">
+                                    📄 Upload your CV
+                                </label>
+                                <div class="file-drop-zone relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer"
+                                     onclick="document.getElementById('cv_file').click()">
+                                    <input type="file" id="cv_file" name="cv_file" accept=".pdf" class="hidden" 
+                                           onchange="handleFileSelect(this, 'cv-zone')">
+                                    <div id="cv-zone" class="flex flex-col items-center space-y-4">
+                                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-lg font-medium text-gray-700 mb-1">
+                                                Drop your file here or <span class="text-blue-500 underline">browse</span>
+                                            </p>
+                                            <p class="text-sm text-gray-500">Only PDF files are accepted</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Description Upload -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">
+                                    💼 Upload Job Description
+                                </label>
+                                <div class="file-drop-zone relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer"
+                                     onclick="document.getElementById('jd_file').click()">
+                                    <input type="file" id="jd_file" name="jd_file" accept=".txt" class="hidden"
+                                           onchange="handleFileSelect(this, 'jd-zone')">
+                                    <div id="jd-zone" class="flex flex-col items-center space-y-4">
+                                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-lg font-medium text-gray-700 mb-1">
+                                                Drop your file here or <span class="text-purple-500 underline">browse</span>
+                                            </p>
+                                            <p class="text-sm text-gray-500">Only TXT files are accepted</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-6 border-t border-gray-100">
+                            <button type="submit" id="submit-btn"
+                                    class="w-full md:w-auto mx-auto flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Analyze Match
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">AI-Powered Analysis</h3>
+                    <p class="text-gray-600 text-sm">Uses Claude Haiku 3.5 to extract skills with high accuracy</p>
+                </div>
+                
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Detailed Metrics</h3>
+                    <p class="text-gray-600 text-sm">Separate analysis for hard and soft skills with percentages</p>
+                </div>
+                
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border border-gray-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Secure & Private</h3>
+                    <p class="text-gray-600 text-sm">Your documents are processed securely and not stored</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cvSelected = false;
+        let jdSelected = false;
+
+        function handleFileSelect(input, zoneId) {
+            const zone = document.getElementById(zoneId);
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const fileName = file.name;
+                
+                // Update zone appearance
+                zone.parentElement.classList.add('file-selected');
+                zone.innerHTML = `
+                    <div class="flex items-center space-x-3 text-green-600">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="font-medium">${fileName}</span>
+                    </div>
+                `;
+                
+                // Track file selection
+                if (input.name === 'cv_file') cvSelected = true;
+                if (input.name === 'jd_file') jdSelected = true;
+                
+                // Enable submit button if both files selected
+                if (cvSelected && jdSelected) {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
+            }
+        }
+
+        // Add drag and drop functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropZones = document.querySelectorAll('.file-drop-zone');
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                
+                zone.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                });
+                
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        const input = zone.querySelector('input[type="file"]');
+                        input.files = files;
+                        handleFileSelect(input, zone.querySelector('div').id);
+                    }
+                });
+            });
+            
+            // Disable submit initially
+            document.getElementById('submit-btn').disabled = true;
+        });
+    </script>
+</body>
+</html>
